@@ -47,3 +47,22 @@
     移除依赖包
         yarn remove [package]
     安装项目的全部依赖
+
+
+## 5.内置模块
+    01 http模块
+    要使用 HTTP 服务器和客户端，则必须require('http')。
+        const http = require('http');
+        // 创建本地服务器来从其接收数据
+        const server = http.createServer((req，res) => {
+            res.writeHead(200，{Content-Type':'application/json' });
+            res.end(JsoN.stringify({
+                data: 'He11o wor1d!'
+            }));
+        });
+        server.listen(8000);
+
+        const http = require('http');
+        // 创建本地服务器来从其接收数据
+        const server = http.createServer();
+        // 监听请求事件
