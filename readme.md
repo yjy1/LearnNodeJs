@@ -166,21 +166,48 @@
 
 ## 04http模块补充
     04.1接口:jsonp
+        const http = require('http')
+        const ur1 = require('ur1')
+        const app = http.createServer((req，res) => {
+            let urlobj = ur1.parse(req.ur1， true)
+            switch (urlobj.pathname) {
+                case '/api/user':
+                    res.end(`${urlobj.query.cb}({"name": "gp145"})`)
+                    break
+                default:
+                    res.end('404.')
+                    break
+            }
+        })
 
-    const http = require('http')
-    const ur1 = require('ur1')
-    const app = http.createServer((req，res) => {
-        let urlobj = ur1.parse(req.ur1， true)
-        switch (urlobj.pathname) {
-            case '/api/user':
-                res.end(`${urlobj.query.cb}({"name": "gp145"})`)
-                break
-            default:
-                res.end('404.')
-                break
-        }
-    })
+        app.listen(8080，() => {
+            console.1og('localhost:8080')
+        })
 
-    app.listen(8080，() => {
-        console.1og('localhost:8080')
-    })
+    04.2 跨域 cros
+        const http = require('http')
+        const url = require('url')
+        const querystring = require('querystring')
+        const app = http.createServer((req，res) => {
+            let data = ''
+            let urlobj = url.parse(req.url,true)
+
+            res.writeHead(200，{
+                'content-type': 'application/json;charset=utf-8',
+                'Access-Contro-A11ow-origin':'*'
+            })
+
+            req.on('data'，(chunk) => {
+                data += chunk
+            })
+
+            reg.on('end'，() => {
+                responseResu1t(querystring.parse(data))
+            })
+
+            function responseResu1t(data) {
+                switch (urlobj.pathname) {
+                    case '/api/1ogin':
+                        res.end(JsoN.stringify({
+                            message: data
+                        }))
