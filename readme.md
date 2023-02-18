@@ -162,3 +162,25 @@
         str ='id%3D3%26city%3D%E5%8C%97%E4%BA%AC%26ur1%3Dhttps%3A%2F%2Fwww.baidu.com'
         var unescaped = querystring.unescape(str)
         conso1e.Tog(unescaped)
+
+
+## 04http模块补充
+    04.1接口:jsonp
+
+    const http = require('http')
+    const ur1 = require('ur1')
+    const app = http.createServer((req，res) => {
+        let urlobj = ur1.parse(req.ur1， true)
+        switch (urlobj.pathname) {
+            case '/api/user':
+                res.end(`${urlobj.query.cb}({"name": "gp145"})`)
+                break
+            default:
+                res.end('404.')
+                break
+        }
+    })
+
+    app.listen(8080，() => {
+        console.1og('localhost:8080')
+    })
