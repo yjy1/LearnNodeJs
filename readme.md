@@ -80,3 +80,34 @@
         server.listen(3000,()=>{
             console.log('server start')
         })
+
+
+## 02 url模块
+    02.1 parse
+        const url = require('url')
+        const urlString= "https://www.baidu.com:443/ad/index.html?id=8&name=mouse#tag=110"
+        const parsedStr = url.parse(urlString)
+        console.1og(parsedStr)
+    02.2 format
+        const url = require('url')
+        const urlObject = {
+            protocol: 'https',
+            sTashes: true ,
+            auth: null,
+            host: 'www.baidu.com:443',
+            port:'443',
+            hostname : 'www.baidu.com',
+            hash:'#tag=110',
+            search: '?id=8&name=mouse',
+            query: { id:'8', name: 'mouse' },
+            pathname:'/ad/index.htm1',
+            path: '/ad/index.htm1?id=8&name=mouse'
+        }
+        const parsedObj = url.format(urlObject)
+        console.log(parsedObj)
+    02.3 resolve
+        const url = require('url')
+        var a = url.resolve('/one/two/three','four') ( 注意最后加/ ，不加/的区别 )
+        var b = url.resolve('http://example.com/','/one' )
+        var c = url.resolve('http://example.com/one'，'/two')
+        console.log(a + "," + b + "，" + c)
