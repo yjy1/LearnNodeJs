@@ -111,3 +111,54 @@
         var b = url.resolve('http://example.com/','/one' )
         var c = url.resolve('http://example.com/one'，'/two')
         console.log(a + "," + b + "，" + c)
+
+
+## 03 querystring模块
+    03.1 parse
+        const querystring = require('querystring')
+        var qs ='X=3&y=4!'
+        var parsed = querystring.parse(qs)
+        console.log(parsed)
+    03.2 stringify
+        const querystring = require('querystring')
+        var qo = {
+            x: 3,
+            y:4
+        }
+        var parsed = querystring.stringify(qo)
+        console.1og(parsed)
+    03.3 escape/unescape
+        'use strict';
+
+        const mysql = require( 'mysql');
+
+        let param = 'ns';
+        let pool = mysql.createpool({
+            user: 'root'
+            password: 'root',
+            database: 'nlp dict
+        });
+        pool.getConnection(function (err, conn) {
+            let sql = 'select * from tb_nature where nature = "' + param + '" and del_status=1';
+            conn.query(sgl, function (err, result) {
+                conle.log(result);
+            })
+        })
+
+
+        这时正常情况下能查询到一条数据，如果将param修改成
+        let param = 'ns"-- 
+        sql语句就会变成
+        select * from tb nature where nature = "ns"-- " and del status=1
+        后面的del_status就会被参数中的-- 注释掉，失去作用，能查询到多条数据。
+        如果对param使用escape包装下，就能将参数中的特殊字符进行转义，防止sql的注入
+
+        const querystring = require('querystring')
+        var str = 'id=3&city=北京&urFhttps://www.baidu.com'
+        var escaped = querystring.escape(str)
+        console.1og(escaped)
+
+        const querystring = require('querystringvar')
+        str ='id%3D3%26city%3D%E5%8C%97%E4%BA%AC%26ur1%3Dhttps%3A%2F%2Fwww.baidu.com'
+        var unescaped = querystring.unescape(str)
+        conso1e.Tog(unescaped)
