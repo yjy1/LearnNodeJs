@@ -52,6 +52,7 @@
 ## 5.内置模块
     01 http模块
     要使用 HTTP 服务器和客户端，则必须require('http')。
+        //第一种写法
         const http = require('http');
         // 创建本地服务器来从其接收数据
         const server = http.createServer((req，res) => {
@@ -62,7 +63,20 @@
         });
         server.listen(8000);
 
+        //第二种写法
         const http = require('http');
         // 创建本地服务器来从其接收数据
         const server = http.createServer();
         // 监听请求事件
+        server.on('request',(req,res)=>{
+            if(req.url==="/favicon.ico"){
+                // todo 读取本地图标
+                return
+            }
+            res.writeHead(moduleRenderStatus.renderStatus(req.url),{"Content-Type":"text/html;charset=utf-8"})
+            res.write(moduleRenderHtml.renderHtml(req.url))
+            res.end()
+        })
+        server.listen(3000,()=>{
+            console.log('server start')
+        })
