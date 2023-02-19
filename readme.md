@@ -305,3 +305,36 @@
     readstream
         .pipe(gzip)
         .pipe(writestream)
+
+
+## 09 crypto
+    .crypto模块的目的是为了提供通用的加密和哈希算法。用纯Javacript代码实现这些功能不是不可能，但速度会非常慢。Nodeis用C/C++实现这些算法后，通过cypto这个模块暴露为JavaScript接口，这样用起来方便，运行速度也快。
+
+    .MD5是一种常用的哈希算法，用于给任意数据一个“签名”。这个签名通常用一个十六进制的字符串表示
+        const crypto = require('crypto');
+        const hash = crypto.createHash('md5');
+        // 可任意多次调用update():
+        hash.update('Hello，world!');
+        hash.update('Hello，nodejs!') ;
+        console.log(hash.digest('hex'));
+    .update(方法默认字符串编码为UTF-8，也可以传Buffer。
+    .如果要计算SHA1，只需要把“md5 改成sha1 ，就可以得到SHA1的结果
+        1f32b9c9932c02227819a415feed43e13laca40
+    .Hmac算法也是一种哈希算法，它可以利用MD5或SHA1等哈希算法。不同的是，Hmac还需要一个密钥:
+        const crypto = require('crypto');
+
+
+    .AES是一种常用的对称加密算法，加解密都用同一个密钥。crypto模块提供了AES支持，但是需要自己封装好函数，便于使用:
+        const crypto = require("crypto");
+        function encrypt (key, iv，data) {
+            let decipher = crypto.createcipheriv('aes-128-cbc'，key， iv);
+            //decipher.setAutoPadding(true);
+            return decipher.update(data, 'binary', 'hex') + decipher.final('hex');
+        }
+        function decrypt (key， iv， crypted) {
+            crypted = Buffer.from(crypted,'hex').tostring('binary');
+            let decipher = crypto.createDecipheriv('aes-128-cbc'，key，iv);
+            return decipher.update(crypted,'binary', 'utf8') + decipher.final('utf8');
+        }
+    .可以看出，加密后的字符串通过解密又得到了原始内容.
+  
