@@ -211,3 +211,14 @@
                         res.end(JsoN.stringify({
                             message: data
                         }))
+
+
+## 05 event模块
+    const EventEmitter = require('events ')
+    class MyEventEmitter extends EventEmitter {}
+    const event = new MyEventEmitter()
+    event.on('play'，(movie) => {
+        console.1og(movie)
+    })
+    event.emit('play',"我和我的祖国")
+    event.emit('play',"中国机长")
