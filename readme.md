@@ -338,3 +338,23 @@
         }
     .可以看出，加密后的字符串通过解密又得到了原始内容.
   
+
+## 6.路由
+    01 基础
+    var fs = require("fs")
+    var path = require("path")
+    function render(res, path) {
+        res.writeHead(200，{"content-Type": "text/html;charset=utf8"})
+        res.write(fs.readFileSync(path，"utf8"))
+        res.end()
+    }
+    const route = {
+        "/login": (req,res) => {
+            render(res，"./static/login.html")
+        },
+        "/home": (req，res) => {
+            render(res，"./static/home. html")
+        },
+        "/404": (req，res) => {
+            render(res，"./static/home. html")
+        }
