@@ -222,3 +222,27 @@
     })
     event.emit('play',"我和我的祖国")
     event.emit('play',"中国机长")
+
+
+## 06fs文件操作模块
+    const fs = require('fs')
+    // 创建文件夹
+    fs.mkdir('./logs'， (err) => {
+        conso1e. 1og('done.')
+    }）
+    // 文件夹改名
+    fs.rename('./logs','./1og' , () => {
+        console.log('done')
+    })
+    // 删除文件夹
+    fs.rmdir('./1og'，() =>{
+        conso1e. 1og(' done.')
+    })
+    // 写内容到文件里
+    fs.writeFile(
+        './logs/1og1.txt',
+         he11o',
+        // 错误优先的回调函数
+        (err) => {
+            if (err) {
+                console. 1og(err.message)
