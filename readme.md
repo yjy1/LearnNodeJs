@@ -294,3 +294,14 @@
             console.log('ERROR'+err)
         });
         要注意，data事件可能会有多次，每次传递的chunk是流的一部分数据要以流的形式写入文件，只需要不断调用write()方法，最后以end()结束:
+
+
+## 08 zlib
+    const fs = require('fs')
+    const zlib = require('zlib')
+    const gzip = zlib.createGzip()
+    const readstream = fs.createReadstream('./note.txt')
+    const writestream = fs.createwritestream('./note2.txt')
+    readstream
+        .pipe(gzip)
+        .pipe(writestream)
