@@ -239,10 +239,31 @@
         conso1e. 1og(' done.')
     })
     // 写内容到文件里
-    fs.writeFile(
-        './logs/1og1.txt',
-         he11o',
-        // 错误优先的回调函数
-        (err) => {
-            if (err) {
-                console. 1og(err.message)
+    fs.writeFile('./avatar/a.text','你好',(err)=>{
+        console.log(err)
+    })
+
+
+    // 同步读取文件
+    try {
+        const content = fs.readFileSync('./logs/log-1.txt'，'utf-8')
+        console.log(content)
+        conso1e.log(0)
+    } catch (e) {
+        conso1e.log(e.message)
+    }
+    //异步读取文件: 方法一
+    fs.readFile('./logs/log-0.txt'，'utf-8'，(err， content) => {
+        console.log(content)
+        conso1e.log(0)
+    })
+    console.log(1)
+    // 异步读取文件: 方法二
+    const fs = require("fs").promises
+    fs.readFile('./logs/log-0.txt'，'utf-8').then(result => {
+        console.log(result)
+    })
+
+    js在fs模块中，提供同步方法是为了方便使用。那我们到底是应该用异步方法还是同步方法呢:
+        .由于Node环境执行的JavaScript代码是服务器端代码，所以，绝大部分需要在服务器运行期反复执行业务逻辑的代码，必须使用异步代码，否则，同步代码在执行时期，服务器将停止响应，因为JavaScript只有一个执行线程。
+        .服务器启动时如果需要读取配置文件，或者结束时需要写入到状态文件时，可以使用同步代码，因为这些代码只在启动和结束时执行一次，不影响服务器正常运行时的异步执行。
