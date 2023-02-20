@@ -435,3 +435,90 @@
     function (req，res){
         res.send('He11o from B!')  
     })
+
+
+    4.中间件
+        Express 是一个自身功能极简，完全是由路由和中间件构成一个的 web 开发框架:从本质上来说，一个Express应用就是在调用各种中间件。
+        中间件(Middleware) 是一个函数，它可以访问请求对象 (request obiect(reg),响应对象(response obiect(res))和 web 应用中处于请求-响应循环流程中的中间件，一般被命名为 next 的变量。
+        中间件的功能包括:
+            .执行任何代码
+            .修改请求和响应对象
+            .终结请求-响应循环。
+            .调用堆栈中的下一个中间件
+        如果当前中间件没有终结请求-响应循环，则必须调用 next) 方法将控制权交给下一个中间件，否则请求就会持起。
+        Express应用可使用如下几种中间件:
+            .应用级中间件
+            .路由级中间件
+            .错误处理中间件
+            .内置中间件
+            .第三方中间件
+
+        使用可选则挂载路径，可在应用级别或路由级别装载中间件。另外，你还可以同时装在一系列中间件函数，从而在个挂载点上创建一个子中间件栈。
+            (1)应用级中间件
+                应用级中间件绑定到app 对象使用app.use()和app.METHOD0，其中，METHOD 是需要处理的 HTTP 请求的方法，例如 GET,PUT,POST 等等，全部小写。例如:
+                var app = express()
+                // 没有挂载路径的中间件，应用的每个请求都会执行该中间件
+                app.use(function (req, res，next) {
+                    console.log('Time :' ，Date.now())
+                }
+
+            (2)路级中间件
+                路由级中间件和应用级中间件一样，只是它绑定的对象为 express.Router()。
+                var router = express.Router()
+                var app = express()
+                var router = express.Router()
+                // 没有挂载路径的中间件，通过该路由的每个请求都会执行该中间件
+                router.use(function (req, res, next) {
+                    console.1og('Time:' ，Date.now())
+                    next()
+                })
+
+                //一个中间件栈，显示任何指向 /user/:id 的 HTTP 请求的信息
+                router.use('/user/:id', function(req， res, next) {
+                    console.1og('Request URL:'，req.originalUrl)
+                    next()
+                },
+                function (req, res, next) {
+                    console.log('Request Type:'，req.method)
+                    next()
+                })
+                // 一个中间件栈，处理指向 /user/:id 的 GET 请求
+                router.get('/user/:id', function (req, res, next) {
+                    // 如果 user id 为 0，跳到下一个路由
+                    if (req.params.id == 0) next('route')
+                    // 负责将控制权交给栈中下一个中间件
+                    else next() //
+                }， function (req, res, next) {
+                    // 染常规页面
+                    res.render('regular')
+                }）
+
+                // 处理 /user/:id， 染一个特殊页面
+                router.get('/user/:id', function (req, res, next) {
+                    consoTe.1og(req.params.id)
+                    res.render('special')
+                }）
+                // 将路由挂载至应用
+                app.use('/'，router)
+
+                (3)错误处理中间件
+                    错误处理中间件和其他中间件定义类似，只是要使用 4 个参数，而不是3个，其签名如下: (err,req,res, next)。
+                    app.use(function(err, req，res, next) {
+                        console.error(err.stack)
+                        res.status(500).send('something broke!')
+                    }）
+                (4)内置的中间件
+                    express.static是Express 唯一内置的中间件。它基于serve-static，负责在 Express 应用中提托管静态资源。每个应用可有多个静态目录。
+                    app.use(express.static('pub1ic'))
+                    app.use(express.static('uploads'))
+                    app.use(express.static('files'))
+
+                 5)第三方中间件
+                    安装所需功能的node 模块，并在应用中加载，可以在应用级加载，也可以在路由级加载下面的例子安装并加载了一个解析 cookie 的中间件: cookie-parser
+                    $ npm insta77cookie-parser
+                    var express = require('express')
+                    var app = express
+                    var cookieParser = require('cookie-parser')
+                    
+                    // 加载用于解析 cookie 的中间件
+                    app.use(cookieParser())
