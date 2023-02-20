@@ -519,6 +519,24 @@
                     var express = require('express')
                     var app = express
                     var cookieParser = require('cookie-parser')
-                    
+
                     // 加载用于解析 cookie 的中间件
                     app.use(cookieParser())
+
+    6.利用 Express 托管静态文件
+        通过xpress 内置的express.static 可以方便地托管静态文件，例如图片、CSS、JavaScript 文件等.将静态资源文件所在的目录作为参数传递给 express.static 中间件就可以提供静态资源文件的访问了。例如，假设在 public 目录放置了图片、CSS 和JavaScript 文件，你就可以:
+        app.use(express.static('public'))
+
+        现在，public 目录下面的文件就可以访问了。
+        http://1ocalhost:3000/images/kitten.jpg
+        http://1ocalhost:3000/css/style.css
+        http://1ocalhost:3000/js/app.js
+        http://1ocalhost:3000/images/bg.png
+        http://1ocalhost:3000/he11o.html
+
+        所有文件的路径都是相对于存放目录的，因此，存放静态文件的目录名不会出现在URL中
+        如果你的静态资源存放在多个目录下面，你可以多次调用express.static中间件:
+        app.use(express.static('public'))
+        app.use(express.static('files'))
+        
+        访问静态资源文件时，express.static中间件会根据目录添加的顺序查找所需的文件
