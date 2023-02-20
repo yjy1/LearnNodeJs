@@ -538,5 +538,19 @@
         如果你的静态资源存放在多个目录下面，你可以多次调用express.static中间件:
         app.use(express.static('public'))
         app.use(express.static('files'))
-        
+
         访问静态资源文件时，express.static中间件会根据目录添加的顺序查找所需的文件
+
+    7.服务端染(模板引擎)
+        1.服务器染，后端嵌套模板，后端染模板，SSR (后端把页面组装)
+            a.做好静态页面，动态效果。
+            b.把前端代码提供给后端，后端要把静态html以及里面的假数据给删掉通过模板进行动态生成html的内容
+        2.前后端分离，BSR (前端中组装页面)
+            a.做好静态页面，动态效果。
+            b.ison 模拟，aiax,动态创建页面
+            c.真实接口数据，前后联调。
+            d.把前端提供给后端静态资源文件夹。
+        npm i ejs
+        需要在应用中进行如下设置才能让Express染模板文件
+            .views,放模板文件的目录，比如: app.set('views'，'./views')
+            .view engine模板引擎，比如: app.set('view engine'，'ejs')
