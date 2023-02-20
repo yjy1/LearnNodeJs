@@ -358,3 +358,17 @@
         "/404": (req，res) => {
             render(res，"./static/home. html")
         }
+
+
+## 二、Express
+    https://www.expressjs.com.cn/
+    基于Node.is 平台，快速、开放、极简的 web 开发框架
+    1.特色
+        1、Web 应用
+            Express 是一个基于 Nodeis 平台的极简、灵活的 web 应用开发框架，它提供一系列强大的特性，帮助你创建各种 Web 和移动设备应用。
+        2、API
+            丰富的 HTTP 快捷方法和任意排列组合的 Connect 中间件，让你创建健壮、友好的 API 变得既快速又简单
+        3、性能
+            Express不对 Nodejs 已有的特性进行二次抽象，我们只是在它之上扩展了 Web 应用所需的基本功能
+    2.安装
+        npm install express --save
