@@ -614,3 +614,19 @@
                     db.users.update({name: "Lisi , {$inc: {age: 50}}, false, true);
                     相当于 update users set ageage + 50 where name = 'Lisi'
                    
+
+            增加数据
+                UserMode1.create({
+                    introduction,username , gender ,avatar ,password,role
+                })
+            查询数据
+                UserModel.find({username :"kerwin"},
+                ["username" ,"role","introduction" ,"password"]).sort([createTime:-1}).skip(10).limit(10)
+            更新数据
+                UserMode1.updateone({
+                    _id
+                },{
+                    introduction,username , gender ,avatar
+                })
+            删除数据
+                UserModel.deleteOne({_id})
