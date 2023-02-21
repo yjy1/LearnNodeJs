@@ -668,4 +668,26 @@
     1.Cookie&Session
     [HTTP 无状态我们知道，HTTP 是无状态的。也就是说，HTTP 请求方和响应方间无法维护状态，都是一次性的，它不知道前后的请求都发生了什么。但有的场景下，我们需要维护状态。最典型的，一个用户登陆微博，发布、关注、评论，都应是在登录后的用户状态下的。[标记]那解决办法是什么呢?
 
-    
+    2.Session
+        constexpress = require("express");
+        constsession = require( express-session"):
+        constMongostore = require("connect-mongo")
+        const app = express();
+
+        app.use(
+            session({
+                secret:"this is session"，// 服务器生成 session 的签名
+                resave: true ，
+                saveUninitialized: true，/制将为初始化的 session 存储
+                cookie:{
+                    maxAge: 1000*60*10,// 过期时间
+                    secure: false，// 为 rue 时候表示只有 https 协议才能访问cookie
+                },
+                rolling: true，//为 true 表示 超时前刷新，cookie 会重新计时; 为 false 表示在超时前刷新多少次都是按照第一次刷新开始计时。
+                store: Mongostore.create({
+                    mongourl: 'mongodb://127.0.0.1:27017/kerwin_session'
+                    ttl: 1000*60*10 // 过期时间
+                }),
+
+            })
+        );
