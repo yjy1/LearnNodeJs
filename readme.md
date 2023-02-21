@@ -572,3 +572,45 @@
             3.为啥喜欢mongodb?
                 由于MongoDB独特的数据处理方式，可以将热点数据加载到内存故而对查询来讲，会非常快 (当然也会非常消耗内存);
                 同时由于采用了BSON的方式存储数据故而对JSON格式数据具有非常好的支持性以及友好的表结构修改性文档式的存储方式，数据友好可见;数据库的分片集群负载具有非常好的扩展性以及非常不错的自动故障转福
+
+            4.在命令行中操作数据库
+                (1)Help查看命令提示
+                    help
+                    db.help()
+                    db.test.help()
+                    db.test.find().help()
+                (2)创建/切换数据库
+                    use music
+                (3)查询数据库
+                    show dbs
+                (4)查看当前使用的数据库
+                    db/db.getName()
+                (5)显示当前DB状态
+                    db.stats()
+                (6)查看当前DB版本
+                    db.version()
+                (7)查看当前DB的链接机器地址
+                    db.getMongo()
+                (8)删除数据库
+                    db.dropDatabase()
+
+                (1)创建一个聚集集合
+                    db.createCollection("collName", {size: 5242880, capped: true.max: 5000); 最大存储空间为 5m，最多 5000 个文档的集合
+                (2)得到指定名称的聚集集合
+                    db.getCollection("account");
+                (3)得到当前db的所有聚集集合
+                    db.getCollectionNames();
+                (4)显示当前db所有聚集的状态
+                    db.printCollectionStats():
+                (5)删除
+                    db.users.drop()
+
+                1)添加
+                    db.users.save(fname: zhangsan', age: 25, sex: true));
+                    db.users.save([name: 'zhangsan', age: 25, sex: truel,fname:"kerin",age:1001);
+                (2)修改
+                    db.users.update(fage: 25), { $set: {name: 'changeName'}}, false, true);
+                    相当于: update users set name = 'changeName' where age = 25 
+                    db.users.update({name: "Lisi , {$inc: {age: 50}}, false, true);
+                    相当于 update users set ageage + 50 where name = 'Lisi'
+                   
