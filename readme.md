@@ -656,3 +656,10 @@
     ?page=2&per_page=100 # 指定第几页，以及每页的记录数
     ?sortby=name&order=asc # 指定返回结果按照哪个属性排序，以及排序顺序
     ?state=close # 指定筛选条件
+
+
+    2.业务分层
+    routerjs:负责将请求分发给C层
+    controllerjs:C层负责处理业务逻辑 (V与M之间的沟通)
+    views: V层: 负责展示页面
+    model: M层:负责处理数据 (增删改查)
