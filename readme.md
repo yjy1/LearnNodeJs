@@ -630,3 +630,29 @@
                 })
             删除数据
                 UserModel.deleteOne({_id})
+
+
+
+## 四、接口规范与业务分层
+    1.接口规范
+        RESTful架构
+            服务器上每一种资源，比如一个文件，一张图片，一部电影，都有对应的url地址，如果我们的客户端需要对服务器上的这个资源进行操作，就需要通过http协议执行相应的动作来操作它，比如进行获取，更新，删除。
+
+            简单来说就是url地址中只包含名词表示资源，使用http动词表示动作进行操作资源举个例子:左边是错误的设计，而右边是正确的
+                GET /blog/getArticles --> GET /blog/Articles  获取所有文章
+                GET /blog/addArticles --> POST /blog/Articles 添加一篇文章
+                GET /blog/editArticles --> PUT /blog/Articles 修改一篇文章
+                GET /rest/api/deleteArticles?id=1 -->DELETE /blog/Articles/1 删除一篇文章
+    使用方式
+        GET http://www.birjemin.com/api/user # 获取列表
+        POST http://www.birjemin.com/api/user # 创建用户
+        PUT http://www.birjemin.com/api/user/fid} # 修改用户信息
+
+
+    过滤信息
+    用于补充规范一些通用字段
+    ?limit=10 # 指定返回记录的数量
+    ?offset=10 # 指定返回记录的开始位置
+    ?page=2&per_page=100 # 指定第几页，以及每页的记录数
+    ?sortby=name&order=asc # 指定返回结果按照哪个属性排序，以及排序顺序
+    ?state=close # 指定筛选条件
