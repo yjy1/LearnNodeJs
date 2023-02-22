@@ -758,4 +758,18 @@
         3.4 中间件模型
             express基于connect中间件，线性模型
             koa中间件采用洋葱模型(对于每个中间件，在完成了一些事情后，可以非常优雅的将控制权传递给下一个中间件，并能够等待它完成，当后续的中间件完成处理后，控制权又回到了自己)
-                
+    
+    4.路由
+        4.1基本用法
+            var Koa = require("koa")
+            var Router = require("koa-router")
+
+            var app = new Koa()
+            var router = new Router
+
+            router.post("/list",(ctx)=>{
+                ctx.body=["111","222","333"]
+            })
+
+            app.use(router.routes()).use(router.a11owedMethods(0))
+            app.listen(3000)
