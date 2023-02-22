@@ -1,0 +1,34 @@
+const Router = require('koa-router')
+const router = new Router()
+
+
+// 增加
+router.post('/',(ctx,next)=>{
+    console.log(ctx.request.body) //获取前端传来的参数
+    // console.log(ctx.body)
+    ctx.body = {
+        ok:1,
+        info:"add user success"
+    }
+}) 
+.get('/',(ctx,next)=>{
+    // 获取前端传来的参数
+    console.log(ctx.query,ctx.querystring)
+    ctx.body = ['aaa','bbb','ccc']
+})
+.put('/:id',(ctx,next)=>{
+    console.log(ctx.params)
+    ctx.body = {
+        ok:1,
+        info:"put user success"
+    }
+})
+// delete
+.del('/:id',(ctx,next)=>{
+    ctx.body = {
+        ok:1,
+        info:"delete user success"
+    }
+})
+
+module.exports = router
