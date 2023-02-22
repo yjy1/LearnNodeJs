@@ -854,3 +854,100 @@
         const UserMode1 = mongoose.mode1("user",new Schema(userType))
         // 模型user 将会对应 users 集合，
         module.exports = UserMode1
+
+
+
+## 九、MysQL
+    1.介绍
+    付费的商用数据库:
+        .Oracle，典型的高富帅;
+        .SQL Server，微软自家产品，Windows定制专款
+        .DB2，IBM的产品，听起来挺高端;
+        .Sybase，曾经跟微软是好基友，后来关系破裂，现在家境惨淡
+    这些数据库都是不开源而且付费的，最大的好处是花了钱出了问题可以找厂家解决，不过在Web的世界里，常常需要部署成千上万的数据库服务器，当然不能把大把大把的银子扔给厂家，所以，无论是Google、 Facebook，还是国内的BAT，无一例外都选择了免费的开源数据库:
+        .MySQL，大家都在用，一般错不了
+        .PostgreSQL，学术气息有点重，其实挺不错，但知名度没有MySQL高
+        .sqlite，嵌入式数据库，适合桌面和移动应用。
+    作为一个avaScript全栈工程师，选择哪个免费数据库呢? 当然是MySQL。因为MySQL普及率最高，出了错，可以很容易找到解决方法。而且，围绕MySQL有一大堆监控和运维的工具，安装和使用很方便。
+
+
+    2.与非关系数据库区别
+    关系型和非关系型数据库的主要差异是数据存储的方式。关系型数据天然就是表格式的，因此存储在数据表的行和列中。数据表可以彼此关联协作存储，也很容易提取数据。
+
+    与其相反，非关系型数据不适合存储在数据表的行和列中，而是大块组合在一起。非关系型数据通常存储在数据集中，就像文档、键值对或者图结构。你的数据及其特性是选择数据存储和提取方式的首要影响因素。
+
+    关系型数据库最典型的数据结构是表，由二维表及其之间的联系所组成的一个数据组织
+    优点:
+        1、易于维护:都是使用表结构，格式一致;
+        2、使用方便: SQL语言通用，可用于复杂查询:
+        3、复杂操作:支持SQL，可用于一个表以及多个表之间非常复杂的查询
+    缺点:
+        1、读写性能比较差，尤其是海量数据的高效率读写
+        2、固定的表结构，灵活度稍欠;
+        3、高并发读写需求，传统关系型数据库来说，硬盘I/O是一个很大的瓶颈
+
+    非关系型数据库严格上不是一种数据库，应该是一种数据结构化存储方法的集合，可以是文档或者键值对等。
+    优点:
+        1、格式灵活:存储数据的格式可以是keyvalue形式、文档形式、图片形式等等，文档形式、图片形式等等，使用灵活，应用场景广泛，而关系型数据库则只支持基础类型
+        2、速度快: nosql可以使用硬盘或者随机存储器作为载体，而关系型数据库只能使用硬盘
+        3、高扩展性;
+        4、成本低: nosql数据库部署简单，基本都是开源软件
+    缺点:
+        1、不提供sql支持
+        2、无事务处理;
+        3、数据结构相对复杂，复杂查询方面稍欠
+
+
+
+## 十、Socket编程
+    1.websocket介绍
+
+    应用场景:
+        .弹幕
+        .媒体聊天
+        .协同编辑
+        .基于位置的应用
+        .体育实况更新
+        .股票基金报价实时更新
+
+    WebSocket并不是全新的协议，而是利用了HTTP协议来建立连接。我们来看看WebSocket连接是如何创建的。首先，WebSocket连接必须由浏览器发起，因为请求协议是一个标准的HTTP请求，格式如下:
+
+    GET ws://1ocalhost:3000/ws/chat HTTP/1.1
+    Host: 1ocalhost
+    Upgrade: websocket
+    Connection: Upgrade
+    origin: http://1ocalhost:3000
+    Sec-Websocket-Key: cient-random-string
+    Sec-Websocket-Version: 13
+
+    该请求和普通的HTTP请求有几点不同
+        1.GET请求的地址不是类似/path/，而是以ws://开头的地址;
+        2.请求头upgrade: websocket和connection: upgrade表示这个连接将要被转换为WebSocket连接
+        3.sec-websocket-Key是用于标识这个连接，并非用于加密数据
+        4.sec-websocket-Version指定了WebSocket的协议版本随后，服务器如果接受该请求，就会返回如下响应:
+
+        HTTP/1.1 101 Switching Protocols
+        Upgrade: websocket
+        Connection: Upgrade
+        Sec-WebSocket-Accept: server-random-string
+
+        该响应代码101表示本次连接的HTTP协议即将被更改，更改后的协议就是upgrade: websocket 指定的WebSocket协议。
+
+        版本号和子协议规定了双方能理解的数据格式，以及是否支持压缩等等。如果仅使用WebSocket的AP1，就不需要关心这些。
+
+        现在，一个WebSocket连接就建立成功，浏览器和服务器就可以随时主动发送消息给对方。消息有两种，一种是文本，一种是二进制数据。通常，我们可以发送JSON格式的文本，这样，在浏览器处理起来就十分容易
+
+        为什么WebSocket连接可以实现全双工通信而HTTP连接不行呢?实际上HTTP协议是建立在TCP协议之上的，TCP协议本身就实现了全双工通信，但是HTTP协议的请求-应答机制限制了全双工通信。Websocket连接建立以后其实只是简单规定了一下: 接下来，咱们通信就不使用HTTP协议了，直接互相发数据吧。
+
+        安全的WebSocket连接机制和HTTPS类似。首先，浏览器用wss://xxx 创建WebSocket连接时，会先通过HTTPS创建安全的连接，然后，该HTTPS连接升级为WebSocket连接，底层通信走的仍然是安全的SSL/TLS协议。
+
+        浏览器支持
+        很显然，要支持WebSocket通信，，浏览器得支持这个协议，这样才能发出ws://xxx的请求。目前，支持WebSocket的主流浏览器如下:
+            .Chrome
+            .Firefox
+            .IE>=10
+            .Sarafi >= 60
+            .Android >= 4.4
+            .iOS >=8
+        服务器支持
+            由于WebSocket是一个协议，服务器具体怎么实现，取决于所用编程语言和框架本身。Node.js本身支持的协议包括TCP协议和HTTP协议，要支持WebSocket协议，需要对Node.is提供的HTTPServer做额外的开发。已经有若干基于Nodeis的稳定可靠的WebSocket实现，我们直接用npm安装使用即可
