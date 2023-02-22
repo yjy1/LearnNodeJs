@@ -802,3 +802,20 @@
                 const bodyParser = require('koa-bodyparser')
                 // 使用ctx.body解析中间件
                 app.use(bodyParser())
+
+
+    8. cookie&session
+        8.1 cookie
+        koa提供了从上下文直接读取、写入cookie的方法
+            .ctx.cookies.get(name,[options]) 读取上下文请求中的cookie 
+            .ctx.cookies.set(name, value,[options]) 在上下文中写入cookie
+        8.2 session
+            .koa-session-minimal 适用于koa2 的session中间件，提供存储介质的读写接口。
+                const session = require('koa-session-minima1')
+                app.use(session({
+                    key:'SESSION ID'
+                    cookie: {
+                        maxAge:1000*60
+                    }
+                }))
+       
