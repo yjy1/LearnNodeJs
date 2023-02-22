@@ -723,3 +723,33 @@
         4.输出模板可自定义
         5.根据文档生成mock数据;
     npm insta11 -g apidoc
+
+
+## 八、Koa2
+                koa
+    基于 Node.js 平台的下一代 web 开发框架
+    1.简介
+        koa 是由 Express 原班人马打造的，致力于成为一个更小、更富有表现力、更健的 Web 架。使用 koa 编写web 应用，通过组合不同的 generator，可以免除重复繁琐的回调函数嵌套，并极大地提升错误处理的效率。koa不在内核方法中绑定任何中间件，它仅仅提供了一个轻量优雅的函数库，使得编写 Web 应用变得得心应手。
+    2.快速开始
+        2.1 安装koa2
+            # 初始化package.json
+            npm init
+            # 安装koa2
+            npm insta11 koa
+
+        2.2 hello world 代码
+            const Koa = require('koa')
+            const app = new Koa()
+            app.use( async ( ctx ) =>{
+                ctx.body =T'he11o koa2'//json数据
+            })
+            app.1isten(3000)
+
+    3. koa vs express
+        通常都会说 Koa 是洋葱模型，这重点在于中间件的设计。但是按照上面的分析，会发现 Express 也是类似的，不同的是Express 中间件机制使用了 Callback 实现，这样如果出现异步则可能会使你在执行顺序上感到困惑，因此如果我们想做接口耗时统计、错误处理 Koa 的这种中间件模式处理起来更方便些。最后一点响应机制也很重要，Koa 不是立即响应，是整个中间件处理完成在最外层进行了响应，而 Express 则是立即响应
+
+        3.1更轻量
+            .koa 不提供内置的中间件;
+            .koa 不提供路由，而是把路由这个库分离出来了 (koa/router)
+        3.2 Context对象
+            koa增加了一个Context的对象，作为这次请求的上下文对象(在koa2中作为中间件的第一个参数传入)。同时Context上也挂载了Request和Response两个对象。和Express类似，这两个对象都提供了大量的便捷方法辅助开发,这样的话对于在保存一些公有的参数的话变得更加合情合理
