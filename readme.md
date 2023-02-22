@@ -790,3 +790,15 @@
         app.listen(3000，() => {
             console.log('[demo] static-use-middleware is starting at port 3000')
         })
+
+
+    6.获取请求参数
+        6.1get参数
+            在koa中，获取GET请求数据源头是koa中request对象中的query方法或querystring方法，query返回是格式化好的参数对象，querystring返的是请求字符串，由于ctx对request的API有直接引用的方式，所以获取GET请求数据有两个途径。
+                ·是从上下文中直接获取 请求对象ctx.query，返回如{a:1,b:2}请求字符串 tx.querystring，返回如a=1&b=2
+                .是从上下文的request对象中获取 请求对象ctx.request.query，返回如{a:1,b:2}请求字符串.ctx.request.querystring，返回如 a=1&b=2
+        6.2post参数
+            对于POST请求的处理，koa-bodyparser中间件可以把koa2上下文的formData数据解析到ctx.request.body中
+                const bodyParser = require('koa-bodyparser')
+                // 使用ctx.body解析中间件
+                app.use(bodyParser())
