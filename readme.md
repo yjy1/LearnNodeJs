@@ -753,3 +753,9 @@
             .koa 不提供路由，而是把路由这个库分离出来了 (koa/router)
         3.2 Context对象
             koa增加了一个Context的对象，作为这次请求的上下文对象(在koa2中作为中间件的第一个参数传入)。同时Context上也挂载了Request和Response两个对象。和Express类似，这两个对象都提供了大量的便捷方法辅助开发,这样的话对于在保存一些公有的参数的话变得更加合情合理
+        3.3 异步流程控制
+            express采用callback来处理异步，koa v1采用generator，koa v2 采用async/awaitgenerator和async/await使用同步的写法来处理异步，明显好于callback和promise
+        3.4 中间件模型
+            express基于connect中间件，线性模型
+            koa中间件采用洋葱模型(对于每个中间件，在完成了一些事情后，可以非常优雅的将控制权传递给下一个中间件，并能够等待它完成，当后续的中间件完成处理后，控制权又回到了自己)
+                
