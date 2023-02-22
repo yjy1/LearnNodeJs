@@ -773,3 +773,20 @@
 
             app.use(router.routes()).use(router.a11owedMethods(0))
             app.listen(3000)
+
+    5.静态资源
+        const Koa = require('koa')
+        const path = require('path')
+        const static = require('koa-static')
+
+        const app = new Koa()
+        app.use(static(
+            path.join( _dirname,"pub1ic")
+        ))
+        app.use( async ( ctx ) =>{
+            ctx.body = 'he11o wor1d
+        })
+         
+        app.listen(3000，() => {
+            console.log('[demo] static-use-middleware is starting at port 3000')
+        })
