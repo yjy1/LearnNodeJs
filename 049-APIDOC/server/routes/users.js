@@ -14,25 +14,31 @@ router.get('/', function(req, res, next) {
 
 /**
  * 
- * @api {post} /api/user user
+ * @api {post} /api/user 增加用户
  * @apiName addUser
- * @apiGroup group
- * @apiVersion  major.minor.patch
+ * @apiGroup usergroup
+ * @apiVersion  1.0.0
  * 
  * 
- * @apiParam  {String} paramName description
+ * @apiParam  {String} username 用户名
+ * @apiParam  {String} password 密码
+ * @apiParam  {Number} age 年龄
+ * @apiParam  {File} avatar 头像
  * 
- * @apiSuccess (200) {type} name description
+ * @apiSuccess (200) {number} ok 标识成功字段
  * 
- * @apiParamExample  {type} Request-Example:
+ * @apiParamExample  {multipart/form-data} Request-Example:
  * {
- *     property : value
+ *     username : 'ycj',
+ *     password : '123',
+ *     age : 26,
+ *     avatar : File对象,
  * }
  * 
  * 
  * @apiSuccessExample {type} Success-Response:
  * {
- *     property : value
+ *     ok : 1
  * }
  * 
  * 
@@ -42,6 +48,26 @@ router.post('/user',upload.single('avatar'), UserController.addUser)
 // 动态路由，获取id-更新用户
 router.put('/user/:id',UserController.updateUser)
 
+
+/**
+ * 
+ * @api {delete} /api/user/:id 删除用户
+ * @apiName deleteUser
+ * @apiGroup usergroup
+ * @apiVersion  1.0.0
+ * 
+ 
+ * @apiSuccess (200) {number} ok 标识成功字段
+ * 
+ 
+ * 
+ * @apiSuccessExample {type} Success-Response:
+ * {
+ *     ok : 1
+ * }
+ * 
+ * 
+ */
 // 删除用户
 router.delete('/user/:id',UserController.deleteUser)
 // 获取用户

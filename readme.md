@@ -710,5 +710,16 @@
                 }
             }
         }
-        
+
         module.exports = JWT
+
+
+## 七、APIDOC-API文档生成工具
+    apidoc 是一个简单的 RESTful APl 文档生成工具，它从代码注释中提取特定格式的内容生成文档。支持诸如Go.ava、C++、Rust等大部分开发语言，具体可使用 apidoc lang 命令行查看所有的支持列表。
+    apidoc 拥有以下特点:
+        1.跨平台，linux、windows、macos 等都支持
+        2.支持语言广泛，即使是不支持，也很方便扩展
+        3.支持多个不同语言的多个项目生成一份文档;
+        4.输出模板可自定义
+        5.根据文档生成mock数据;
+    npm insta11 -g apidoc
