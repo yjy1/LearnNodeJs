@@ -818,4 +818,20 @@
                         maxAge:1000*60
                     }
                 }))
-       
+    
+
+    10.上传文件
+    https://www.npmjs.com/package/@koa/multer
+    npm insta11 --save @koa/multer multer
+
+    const muter = require('@koa/multer');
+    const upload = multer([ dest: 'public/uploads/' })
+
+    router.post("/",upload.single('avatar') ,
+    (ctx,next)=>{
+        console.1og(ctx.request.body,ctx.file)
+        ctx.body={
+            ok:1,
+            info:"add user success'
+        }
+    })
