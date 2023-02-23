@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <h1>聊天室</h1>
+
+    <div>
+        <input type="text" id="text">
+        <button id="send">send</button>
+        <select id="select"></select>
+    </div>
+    <!-- 建立socket连接 带着token,后端验证 -->
+    <script>
+        var select = document.querySelector("#select")
+        var text = document.querySelector("#text")
+        var send = document.querySelector("#send")
+
+        const WebSocketType = {
+            Error: 0,//错误
+            GroupList: 1,
+            GroupChat: 2,
+            SingleChat: 3
+        }
+
+        const ws = new WebSocket(`ws://localhost:8080?token=${localStorage.getItem('token')}`)
+
+        ws.onopen = () => {
+
+        }
+
+        ws.onmessage = (msgObj) => {
+
+            msgObj = JSON.parse(msgObj.data)
+
+            switch (msgObj.type) {
+                case WebSocketType.Error:
+                    localStorage.removeItem('token')
+                    location.href = '/login'
+                    break;
+                case WebSocketType.GroupList:
+                    console.log(JSON.parse(msgObj.data))
+
+                    const onlineList = JSON.parse(msgObj.data)
+
+                    select.innerHTML = ''
+                    select.innerHTML = `<option value='all'>all</option>` + onlineList.map(item => `
+                        <option value=${item.username}>${item.username}</option>
+                    `).join('')
+
+                    break;
+                case WebSocketType.GroupChat:
+                    var title = msgObj.user ? msgObj.user.username : '广播'
+                    console.log(title + ' : ' + msgObj.data)
+                    break;
+                case WebSocketType.SingleChat:
+                    var title = msgObj.user ? msgObj.user.username : '广播'
+                    console.log(title + ' : ' + msgObj.data)
+                    break;
+                default:
+                    break;
+            }
+        }
+
+        send.onclick = () => {
+            if (select.value === 'all') {
+                // 群发
+                // sendAll()
+                console.log('群发')
+                ws.send(createMessage(WebSocketType.GroupChat, text.value))
+            } else {
+                // 私聊
+                ws.send(createMessage(WebSocketType.GroupChat, text.value, select.value))
+            }
+        }
+
+
+        function createMessage(type, data, to) {
+            return JSON.stringify({
+                type,
+                data,
+                to
+            })
+        }
+
+    </script>
+</body>
+
+</html>
