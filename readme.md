@@ -951,3 +951,20 @@
             .iOS >=8
         服务器支持
             由于WebSocket是一个协议，服务器具体怎么实现，取决于所用编程语言和框架本身。Node.js本身支持的协议包括TCP协议和HTTP协议，要支持WebSocket协议，需要对Node.is提供的HTTPServer做额外的开发。已经有若干基于Nodeis的稳定可靠的WebSocket实现，我们直接用npm安装使用即可
+
+    2.ws模块
+    服务器:
+        constwebSocket = require("ws")
+        Websocketserver = websocket.websocketserver
+        const wss = new websocketserver({port: 8080});
+        wss.on('connection'，function connection(ws){
+             ws.on('message'，function message(data，isBinary) {
+                wss.clients.forEach(function each(client) {
+                    if (client !== ws && client.readystate === Websocket.OPEN) {
+                        client.send(data, {binary: isBinary });
+                    }
+                });
+            });
+
+            ws.send(欢迎加入聊天室');
+        })
